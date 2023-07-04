@@ -28,7 +28,7 @@ const ProductInfo = () => {
       <h3>$:{price}</h3>
       <button
         className="rounded-lg bg-fuchsia-500 hover:bg-white text-white hover:text-black"
-        onClick={() => addingToCart()}
+        onClick={() => addingToCart()} disabled={inCart}
       >
         {inCart ? "In Cart" : "add to cart"}
       </button>

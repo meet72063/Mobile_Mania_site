@@ -22,7 +22,6 @@ const productSlice = createSlice({
     AddtoCart: (state, { payload }) => {
       const product = state.products.find((product) => product.id === payload);
       product.inCart = true;
-      product.count += 1;
       product.total = product.count * product.price;
       state.items += 1;
       state.total = state.total + product.price;
@@ -45,9 +44,7 @@ const productSlice = createSlice({
         state.detailProduct.inCart = false;
       }
     },
-    emptyDetails: (state) => {
-      state.detailProduct = "";
-    },
+   
 
     increment: (state, { payload }) => {
       const product = state.products.find((product) => product.id === payload);
@@ -63,10 +60,22 @@ const productSlice = createSlice({
 
       if (product.count === 0) {
         product.inCart = false;
-        state.total -= 1;
+        state.total = state.total-product.total
+        state.items = state.items-1
       }
       state.total = state.total - product.price;
     },
+
+    emptyDetails: (state) => {
+      state.detailProduct = "";
+    },
+
+    emptyCartItems:(state)=>{
+      const removedCartProducts = state.products.map((product)=>{
+        return {...product,inCart:false}
+      })
+    state.products = removedCartProducts
+    }
   },
 });
 
@@ -77,6 +86,7 @@ export const {
   AddtoCart,
   emptyDetails,
   removeFromCart,
+  emptyCartItems
 } = productSlice.actions;
 
 export default productSlice.reducer;

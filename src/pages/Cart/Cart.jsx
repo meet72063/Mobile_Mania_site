@@ -1,14 +1,20 @@
 import React from "react";
-import { UseSelector, useSelector } from "react-redux/es/hooks/useSelector";
+import {useSelector } from "react-redux/es/hooks/useSelector";
 import Product from "../IndexPage/Product";
 import ProductDetail from "../Details/ProductDetail";
+import { useDispatch } from "react-redux";
+import {emptyCartItems} from '../../productSlice'
 
 const Cart = () => {
   const {
     products: Products,
     total,
     items,
-  } = useSelector((store) => store.product);
+  } = useSelector((store) => store.product)
+
+  const dispatch = useDispatch()
+
+
 
   const cartItems = Products.filter((item) => item.inCart === true);
   return (
@@ -37,7 +43,9 @@ const Cart = () => {
           <div className="border pl-32 pt-40 text-stone-900 text-5xl font-extralight text-center capitalize ">
             <h1 className="mb-5">Items:{items}</h1>
             <h1>total:${total}</h1>
-          </div>
+
+            <button className="bg-red-500 rounded-full  text-base  font-semibold w-40 text-center h-8 capitalize " onClick={()=>{dispatch(emptyCartItems())}}>Do Empty your Cart</button>
+          </div> 
         </div>
       )}
     </div>
