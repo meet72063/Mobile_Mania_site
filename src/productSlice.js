@@ -22,8 +22,8 @@ const productSlice = createSlice({
     AddtoCart: (state, { payload }) => {
       const product = state.products.find((product) => product.id === payload);
       product.inCart = true;
-      
-      state.items += 1
+  
+      state.items += 1;
       state.total = state.total + product.price;
       product.count = 1;
       product.total = product.price;
@@ -60,7 +60,7 @@ const productSlice = createSlice({
 
       if (product.count === 0) {
         product.inCart = false;
-        state.items = state.items-1
+        state.items -= 1;
       }
       state.total = state.total - product.price;
     },
